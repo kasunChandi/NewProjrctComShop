@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors"); 
 const mongoose = require("mongoose");
 const DesktopPc = require("./routes/DesktopPc");
+const LaptopPc = require("./routes/LaptopPc")
 const app = express();
 const port = 5000;
 
@@ -9,6 +10,7 @@ const port = 5000;
 app.use(express.json());
 app.use(cors());
 app.use('/api/desktopPC', DesktopPc);
+app.use('/api/laptopPc', LaptopPc);
 
 mongoose
 .connect("mongodb://localhost/ComputeShopDB",{useNewUrlParser:true , useUnifiedTopology: true})
