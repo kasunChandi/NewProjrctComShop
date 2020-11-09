@@ -37,6 +37,22 @@ router.post("/", async (req, res) => {
      }
    });
 
+   router.put( "/:itemid", async(req, res)=>{
+     try {
+       let upDesktop = await DesktopPc.findOneAndUpdate(
+         {_id: req.params.itemid},
+         { $set: { likeCount: req.body.likeCount } },
+      { new: true, useFindAndModify: false }
+       );
+
+       res.send(upDesktop);
+       
+     } catch (e) {
+       return res.status(500).send(e.message);
+       
+     }
+   })
+
 
 
 
