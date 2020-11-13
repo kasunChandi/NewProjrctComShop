@@ -10,11 +10,16 @@ try{
     {
     return res.status(400).json({msg : "fealds are not fill"});
     }
- /*    if( password.length < 5)
+    if( password.length < 5)
     {
         return res.status(400).json({msg : "password is short"});   
-    } */
-    return res.status(200).json({msg : "ok"}); 
+    }
+    const existingUser = await user.findOne({email: email});
+    if(existingUser){
+        return res.status(400).send("this email alrady registed ");
+
+    }
+    
 }
 catch(e){
     res.send(500).json(e);
