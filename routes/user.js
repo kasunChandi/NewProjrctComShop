@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const user = require("../models/userSchema");
+const bcrypt = require("bcrypt");
+const jsonwebtoken = require("jsonwebtoken");
 
 router.post( "/", async(req, res) =>{
     const {email, password, passwordCheck} = req.body;
