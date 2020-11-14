@@ -1,7 +1,9 @@
 const router = require("express").Router();
+const auth = require("../midleware/auth");
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
+
 
 router.post( "/", async(req, res) =>{
     const {email, password, passwordCheck} = req.body;
@@ -59,7 +61,7 @@ try {
         return res.status(400).send("this account is not autherrized...")
     }
 
-    const token =jsonwebtoken.sign({id:  user._id}, "asdfghjkl");
+    const token =jsonwebtoken.sign({id: user._id}, process.env.JWTSC);
     res.json({
         token,
         user:{
@@ -74,7 +76,15 @@ catch (e) {
 
 });
 
+router.delete("/delete", auth, async(req, res)=>{
+try {
+    const deleteUser = await User.findByIdAndDelete(req.user);
+    res.json(deleteUser);
+} catch (e) {
+    res.status(500).send("error :" +e);
+}
 
+});
 
 
 module.exports = router;
