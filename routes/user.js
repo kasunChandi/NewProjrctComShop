@@ -3,6 +3,7 @@ const auth = require("../midleware/auth");
 const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
+require('dotenv').config();
 
 
 router.post( "/", async(req, res) =>{
@@ -61,7 +62,7 @@ try {
         return res.status(400).send("this account is not autherrized...")
     }
 
-    const token =jsonwebtoken.sign({id: user._id}, process.env.JWTSC);
+    const token =jsonwebtoken.sign({id: user._id}, process.env.JWTTOKEN);
     res.json({
         token,
         user:{

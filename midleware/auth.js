@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 const auth = (req, res, next)=>{
 
@@ -10,7 +11,7 @@ try {
         .status(401)
         .json({msg : "user is not autherrized "});
     }
-        const verified = jwt.verify(token, process.env.JWTSC);
+        const verified = jwt.verify(token, process.env.JWTTOKEN);
       //  console.log(verified);
         if(!verified){
             return res.status(401).json({msg : " autherrized faild "});
